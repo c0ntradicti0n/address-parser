@@ -1,0 +1,15 @@
+/output/models/model-last/
+/output/models/model-last/ner/
+/output/models/model-last/vocab/
+/output/models/model-last/config.cfg
+/output/models/model-last/meta.json
+/output/models/model-last/tokenizer
+/output/models_er/
+/output/models_er/model-best/
+/output/models_er/model-best/entity_ruler/
+/output/models_er/model-best/ner/
+/output/models_er/model-best/vocab/
+/output/models_er/model-best/config.cfg
+/output/models_er/model-best/meta.json
+/output/models_er/model-best/tokenizer
+/output/models_er/model-last/

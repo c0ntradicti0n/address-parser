@@ -2,18 +2,19 @@
   "lang":"en",
   "name":"pipeline",
   "version":"0.0.0",
-  "spacy_version":">=3.1.2,<3.2.0",
+  "spacy_version":">=3.2.1,<3.3.0",
   "description":"",
   "author":"",
   "email":"",
   "url":"",
   "license":"",
-  "spacy_git_version":"e1f88de72",
+  "spacy_git_version":"800737b41",
   "vectors":{
     "width":0,
     "vectors":0,
     "keys":0,
-    "name":null
+    "name":null,
+    "mode":"default"
   },
   "labels":{
     "ner":[
@@ -37,51 +38,51 @@
 
   ],
   "performance":{
-    "ents_f":0.9733840304,
-    "ents_p":0.9696969697,
-    "ents_r":0.9770992366,
+    "ents_f":0.0081466395,
+    "ents_p":0.44,
+    "ents_r":0.0041113811,
     "ents_per_type":{
-      "BUILDING_NO":{
-        "p":0.9375,
-        "r":0.9375,
-        "f":0.9375
-      },
-      "STREET_NAME":{
-        "p":0.9473684211,
-        "r":1.0,
-        "f":0.972972973
-      },
-      "CITY":{
-        "p":1.0,
-        "r":1.0,
-        "f":1.0
-      },
-      "STATE":{
-        "p":1.0,
-        "r":1.0,
-        "f":1.0
+      "RECIPIENT":{
+        "p":0.0,
+        "r":0.0,
+        "f":0.0
       },
       "ZIP_CODE":{
+        "p":0.4343434343,
+        "r":0.0319940476,
+        "f":0.0595980596
+      },
+      "BUILDING_NO":{
         "p":1.0,
-        "r":1.0,
-        "f":1.0
+        "r":0.000754717,
+        "f":0.0015082956
+      },
+      "STREET_NAME":{
+        "p":0.0,
+        "r":0.0,
+        "f":0.0
       },
       "COUNTRY":{
-        "p":1.0,
-        "r":1.0,
-        "f":1.0
-      },
-      "RECIPIENT":{
-        "p":1.0,
-        "r":1.0,
-        "f":1.0
+        "p":0.0,
+        "r":0.0,
+        "f":0.0
       },
       "BUILDING_NAME":{
-        "p":0.5,
-        "r":0.5,
-        "f":0.5
+        "p":0.0,
+        "r":0.0,
+        "f":0.0
+      },
+      "STATE":{
+        "p":0.0,
+        "r":0.0,
+        "f":0.0
+      },
+      "CITY":{
+        "p":0.0,
+        "r":0.0,
+        "f":0.0
       }
     },
-    "ner_loss":0.0020140509
+    "ner_loss":98.6461240687
   }
 }

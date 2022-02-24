@@ -2,6 +2,9 @@ import spacy
 from spacy.tokens import DocBin
 import pandas as pd
 import re
+
+from config import main_tag, tag_list
+
 pd.set_option('display.max_colwidth', -1)
 
 def massage_data(address):
@@ -32,9 +35,10 @@ def extend_list(entity_list,entity):
         entity_list.append(entity)
         return entity_list
 
-def create_entity_spans(df,tag_list):
+def create_entity_spans(df,main_tag, tag_list):
     '''Create entity spans for training/test datasets'''
-    df['Address']=df['Address'].apply(lambda x: massage_data(x))
+    df[main_tag]=df['Address'].apply(lambda x: massage_data(x))
+
     df["BuildingTag"]=df.apply(lambda row:get_address_span(address=row['Address'],address_component=row['Building_Name'],label='BUILDING_NAME'),axis=1)
     df["BuildingNoTag"]=df.apply(lambda row:get_address_span(address=row['Address'],address_component=row['Building_Number'],label='BUILDING_NO'),axis=1)
     df["RecipientTag"]=df.apply(lambda row:get_address_span(address=row['Address'],address_component=row['Recipient'],label='RECIPIENT'),axis=1)
@@ -43,6 +47,8 @@ def create_entity_spans(df,tag_list):
     df["CityTag"]=df.apply(lambda row:get_address_span(address=row['Address'],address_component=row['City'],label='CITY'),axis=1)
     df["CountryTag"]=df.apply(lambda row:get_address_span(address=row['Address'],address_component=row['Country'],label='COUNTRY'),axis=1)
     df["StateTag"]=df.apply(lambda row:get_address_span(address=row['Address'],address_component=row['State'],label='STATE'),axis=1)
+
+
     df['EmptySpan']=df.apply(lambda x: [], axis=1)
 
     for i in tag_list:
@@ -67,15 +73,12 @@ def get_doc_bin(training_data,nlp):
 #Load blank English model. This is needed for initializing a Document object for our training/test set.
 nlp = spacy.blank("en")
 
-#Define custom entity tag list
-tag_list=["BuildingTag","BuildingNoTag","RecipientTag","StreetNameTag","ZipCodeTag","CityTag","StateTag","CountryTag"]
-
 ###### Training dataset prep ###########
 # Read the training dataset into pandas
-df_train=pd.read_csv(filepath_or_buffer="./corpus/dataset/us-train-dataset.csv",sep=",",dtype=str)
+df_train=pd.read_csv(filepath_or_buffer="./corpus/dataset/train-dataset.csv",sep=",",dtype=str)
 
 # Get entity spans
-df_entity_spans= create_entity_spans(df_train.astype(str),tag_list)
+df_entity_spans= create_entity_spans(df_train.astype(str),main_tag=main_tag, tag_list=tag_list)
 training_data= df_entity_spans.values.tolist()
 
 # Get & Persist DocBin to disk
@@ -86,10 +89,10 @@ doc_bin_train.to_disk("./corpus/spacy-docbins/train.spacy")
 
 ###### Validation dataset prep ###########
 # Read the validation dataset into pandas
-df_test=pd.read_csv(filepath_or_buffer="./corpus/dataset/us-test-dataset.csv",sep=",",dtype=str)
+df_test=pd.read_csv(filepath_or_buffer="./corpus/dataset/test-dataset.csv",sep=",",dtype=str)
 
 # Get entity spans
-df_entity_spans= create_entity_spans(df_test.astype(str),tag_list)
+df_entity_spans= create_entity_spans(df_test.astype(str),main_tag=main_tag,tag_list=tag_list)
 validation_data= df_entity_spans.values.tolist()
 
 # Get & Persist DocBin to disk
